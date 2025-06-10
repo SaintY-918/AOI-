@@ -1,7 +1,7 @@
 # AOI 瑕疵分類專案
 
 
-本專案針對 AOI 缺陷影像進行多模型分類，整合ViT、ConvNeXt、YOLOv11-cls三種架構，進行5-fold Ensemble 與加權融合推論，以提升分類準確率。
+本專案針對 AOI 缺陷影像進行多模型分類，整合 ViT 、 ConvNeXt 、 YOLOv11-cls 三種架構，進行 5-fold Ensemble 與加權融合推論，以提升分類準確率。
 
 
 ## 環境與套件
@@ -71,7 +71,7 @@
 
 
 ## 架構與融合策略
-本專案整合三種模型架構進行分類推論，Vit架構參考另一位參加者採用的 multi-input 方法設計[^2]，從原本2-branch擴展為3-branch。加上採用 5 fold cross validation 訓練的 ConvNeXt 和 YOLO11-cls ，進行聯合推論。結合了多視角特徵學習能力與 5-fold Ensemble 的穩定性，有效提升分類準確率。
+本專案整合三種模型架構進行分類推論， Vit 架構參考另一位參加者採用的 multi-input 方法設計[^2]，從原本2-branch擴展為3-branch。加上採用 5 fold cross validation 訓練的 ConvNeXt 和 YOLO11-cls ，進行聯合推論。結合了多視角特徵學習能力與 5-fold Ensemble 的穩定性，有效提升分類準確率。
 
 ### 5-fold Ensemble
 
