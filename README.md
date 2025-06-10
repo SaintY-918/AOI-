@@ -109,11 +109,17 @@ $$
 ## 執行方式
 
 ```bash
-# 安裝依賴
+# 安裝套件
 pip install -r requirements.txt
 
-# 執行推論
-python inference.py --config config.yaml
+# vit模型訓練
+python train_vit_multi.py
+
+# vit模型推論
+python evaluate_vit_multi.py
+
+# 集成推論
+python evaluate_ensemble.py
 
 ```
 
