@@ -40,6 +40,10 @@
 - **影像類別**：共 **6 類**
   - 1 類為正常影像（Normal）
   - 5 類為瑕疵影像（Defect Types）
+ 
+### 資料分布:
+
+![資料分布](images/class_distribution.png )
 
 ## 資料增強
 
@@ -58,7 +62,30 @@
 
 ![資料增強圖片](images/da_examples.png )
 
-## 模型架構與融合策略
+## 模型
+- **Vision Transformer**
+- **ConvNeXt**
+- **YOLO11-cls**
+
+## 架構與融合策略
+本專案整合三種模型架構進行分類推論，Vit架構參考另一位參加者使用multi-input設計[^1]，從原本2-branch擴展為3-branch。加上採用5 fold cross validation 訓練的ConvNeXt和YOLO11-cls，進行聯合推論。
+
+### 5-fold Ensemble
+
+推論方式：5 折模型輸出經 softmax 後平均。
+
+###  加權融合策略
+
+最終分類機率由三種模型的預測結果加權平均：
+
+$$
+P = 0.2 \cdot P_{ConvNeXt} + 0.6 \cdot P_{ViT} + 0.2 \cdot P_{YOLO}
+$$
+
+
+---
+
+此融合策略結合了多視角特徵學習能力與 5-fold Ensemble 的穩定性，能有效提升分類準確率與泛化能力。
 
 
 ## 執行方式
@@ -69,4 +96,11 @@ pip install -r requirements.txt
 
 # 執行推論
 python inference.py --config config.yaml
+
+```
+
+
+## 參考資料
+
+[^1]:[https://github.com/Aaron-Chang-AC/AIdea-Defect-Classifications-of-AOI]
 
