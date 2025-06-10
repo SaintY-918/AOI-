@@ -4,13 +4,6 @@
 本專案針對 AOI 缺陷影像進行多模型分類，整合ViT、ConvNeXt、YOLOv11-cls三種架構，進行5-fold Ensemble 與加權融合推論，以提升分類準確率。
 
 
-## 資料集來源
-
-資料集由工業技術研究院於 Aidea 平台提供，作為參賽者訓練分類模型之用。
-
-🔗 [Aidea 資料集連結](https://aidea-web.tw/topic/285ef3be-44eb-43dd-85cc-f0388bf85ea4)
-
-
 ## 環境與套件
 
 - **作業系統**：Ubuntu 24.04 LTS (Kernel 5.15, WSL2 on Windows 11)
@@ -33,6 +26,11 @@
 ---
 
 
+## 資料集來源
+
+資料集由工業技術研究院於 Aidea 平台提供，作為參賽者訓練分類模型使用[^1]。
+
+
 ## 資料集描述
 
 本專案使用的資料集包含 AOI 缺陷影像，影像格式為 PNG，解析度統一為 **512x512** 像素。
@@ -40,8 +38,8 @@
 - **訓練資料**：共 **2,528 張影像**
 - **測試資料**：共 **10,142 張影像**
 - **影像類別**：共 **6 類**
-  - 1 類為正常影像（Normal）
-  - 5 類為瑕疵影像（Defect Types）
+  - 1 類為正常影像
+  - 5 類為瑕疵影像
  
 ### 資料分布:
 
@@ -73,7 +71,7 @@
 
 
 ## 架構與融合策略
-本專案整合三種模型架構進行分類推論，Vit架構參考另一位參加者採用的 multi-input 方法設計[^1]，從原本2-branch擴展為3-branch。加上採用 5 fold cross validation 訓練的 ConvNeXt 和 YOLO11-cls ，進行聯合推論。結合了多視角特徵學習能力與 5-fold Ensemble 的穩定性，有效提升分類準確率。
+本專案整合三種模型架構進行分類推論，Vit架構參考另一位參加者採用的 multi-input 方法設計[^2]，從原本2-branch擴展為3-branch。加上採用 5 fold cross validation 訓練的 ConvNeXt 和 YOLO11-cls ，進行聯合推論。結合了多視角特徵學習能力與 5-fold Ensemble 的穩定性，有效提升分類準確率。
 
 ### 5-fold Ensemble
 
@@ -100,7 +98,7 @@ $$
 |--------------------|----------------|
 | ViT-base (3-input) | 0.9967940      |
 | ConvNeXt-B         | 0.9953144      |
-| YOLO11m-cls        | 0.9945754      |
+| YOLO11m-cls        | 0.9948212      |
 | **Ensemble**       | **0.9977805**  |
 
 ###  排名
@@ -122,5 +120,8 @@ python inference.py --config config.yaml
 
 ## 參考資料
 
-[^1]:[https://github.com/Aaron-Chang-AC/AIdea-Defect-Classifications-of-AOI]
+[^1]:[https://aidea-web.tw/topic/285ef3be-44eb-43dd-85cc-f0388bf85ea4]
+
+[^2]:[https://github.com/Aaron-Chang-AC/AIdea-Defect-Classifications-of-AOI]
+
 
