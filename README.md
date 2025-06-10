@@ -1,12 +1,15 @@
 # AOI 瑕疵分類專案
 
+
 本專案針對 AOI 缺陷影像進行多模型分類，整合ViT、ConvNeXt、YOLOv11-cls三種架構，進行5-fold Ensemble 與加權融合推論，以提升分類準確率。
+
 
 ## 資料集來源
 
 資料集由工業技術研究院於 Aidea 平台提供，作為參賽者訓練分類模型之用。
 
 🔗 [Aidea 資料集連結](https://aidea-web.tw/topic/285ef3be-44eb-43dd-85cc-f0388bf85ea4)
+
 
 ## 環境與套件
 
@@ -27,11 +30,10 @@
 | Transformers     | 4.52.4     |
 | Ultralytics YOLO | 8.3.146    |
 
-
 ---
 
-## 資料集描述
 
+## 資料集描述
 
 本專案使用的資料集包含 AOI 缺陷影像，影像格式為 PNG，解析度統一為 **512x512** 像素。
 
@@ -44,6 +46,7 @@
 ### 資料分布:
 
 ![資料分布](images/class_distribution.png )
+
 
 ## 資料增強
 
@@ -62,13 +65,15 @@
 
 ![資料增強圖片](images/da_examples.png )
 
+
 ## 模型
 - **Vision Transformer**
 - **ConvNeXt**
 - **YOLO11-cls**
 
+
 ## 架構與融合策略
-本專案整合三種模型架構進行分類推論，Vit架構參考另一位參加者使用multi-input設計[^1]，從原本2-branch擴展為3-branch。加上採用5 fold cross validation 訓練的ConvNeXt和YOLO11-cls，進行聯合推論。
+本專案整合三種模型架構進行分類推論，Vit架構參考另一位參加者採用的 multi-input 方法設計[^1]，從原本2-branch擴展為3-branch。加上採用 5 fold cross validation 訓練的 ConvNeXt 和 YOLO11-cls ，進行聯合推論。結合了多視角特徵學習能力與 5-fold Ensemble 的穩定性，有效提升分類準確率。
 
 ### 5-fold Ensemble
 
@@ -79,16 +84,28 @@
 最終分類機率由三種模型的預測結果加權平均：
 
 $$
-P = 0.2 \cdot P_{ConvNeXt} + 0.6 \cdot P_{ViT} + 0.2 \cdot P_{YOLO}
+P = 0.6 \cdot P_{ViT} + 0.2 \cdot P_{ConvNeXt} + 0.2 \cdot P_{YOLO}
 $$
-
 
 ---
 
-此融合策略結合了多視角特徵學習能力與 5-fold Ensemble 的穩定性，能有效提升分類準確率與泛化能力。
+###  推論過程演示
 
-## 測試集推論結果
+![推論過程演示](images/ensemble_examples.png )
 
+
+##  測試集推論結果
+
+| 模型名稱           | Accuracy |
+|--------------------|----------------|
+| ViT-base (3-input) | 0.9967940      |
+| ConvNeXt-B         | 0.9953144      |
+| YOLO11m-cls        | 0.9945754      |
+| **Ensemble**       | **0.9977805**  |
+
+###  排名
+
+![排名](images/rank.png )
 
 
 ## 執行方式
