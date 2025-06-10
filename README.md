@@ -55,7 +55,7 @@
 - `Rotation`：隨機旋轉影像角度
 - `Resize & Crop`：調整尺寸並裁切
 - `Sharpness`：調整影像銳利度
-- **YOLOv8 內建增強**：
+- **YOLO 內建增強**：
   - `HSV_V`：改變影像亮度（Value）
   - `Translate`：隨機平移影像位置
 
